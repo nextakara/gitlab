@@ -1,0 +1,15 @@
+#
+# PRODUCTION
+#
+production:
+  adapter: mysql2
+  encoding: utf8
+  collation: utf8_general_ci
+  reconnect: false
+  database: gitlabhq_production
+  pool: 10
+  username: git
+  password: "git"
+  host: 172.17.42.1
+  # socket: /tmp/mysql.sock
+

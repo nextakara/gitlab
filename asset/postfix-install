@@ -1,0 +1,9 @@
+#!/usr/bin/expect
+set timeout -1
+spawn apt-get install -y postfix
+expect "General type of mail configuration:"
+send "2\r"
+expect "System mail name:"
+send "gitlab.sakura.co.jp\r"
+expect eof
+

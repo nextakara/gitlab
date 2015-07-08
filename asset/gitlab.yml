@@ -17,7 +17,7 @@ production: &base
   ## GitLab settings
   gitlab:
     ## Web server settings (note: host is the FQDN, do not include http://)
-    host: gitlab.sakura.co.jp
+    host: src.taka2063.com
     port: 80 # Set to 443 if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
     https: false # Set to true if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
 
@@ -42,7 +42,7 @@ production: &base
     # Uncomment and set to false if you need to disable email sending from GitLab (default: true)
     # email_enabled: true
     # Email address used in the "From" field in mails sent by GitLab
-    email_from: root@gitlab.sakura.co.jp
+    email_from: root@src.taka2063.com
 
     # Email server smtp settings are in [a separate file](initializers/smtp_settings.rb.sample).
 

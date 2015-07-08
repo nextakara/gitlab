@@ -1,18 +1,19 @@
-NAME=debian_gitlab
+NAME=gitlab
+VERSION=7.9
 
 build:
-	docker build -t $(NAME) .
+	docker build -t $(NAME):$(VERSION) .
 
 restart: stop start
 
 start:
 	docker run -itd \
 		-p 222:222 \
-		-p 300:80 \
+		-p 301:80 \
 		-v /var/repositories:/home/git/repositories \
 		-v /var/repositories/git/ssh:/home/git/.ssh \
 		--name $(NAME) \
-		$(NAME) bash
+		$(NAME):$(VERSION) bash
 
 contener=`docker ps -a -q`
 image=`docker images | awk '/^<none>/ { print $$3 }'`

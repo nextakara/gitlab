@@ -52,7 +52,7 @@ COPY asset/application.rb /home/git/gitlab/config/
 RUN bundle exec rake gitlab:shell:install[v2.4.0] REDIS_URL=unix:/var/run/redis/redis.sock RAILS_ENV=production
 RUN bundle exec rake assets:precompile RAILS_ENV=production
 
-EXPOSE 223 80
+EXPOSE 80 222
 
 ENTRYPOINT /root/init
 

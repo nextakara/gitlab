@@ -1,6 +1,5 @@
 #!/bin/bash
 service ssh start
-#service mysql start
 service redis-server start
 service gitlab start
 service nginx start

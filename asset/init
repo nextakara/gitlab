@@ -1,9 +1,8 @@
 #!/bin/bash
 service ssh start
-service mysql start
 service redis-server start
 service gitlab start
 service nginx start
 service postfix start
-echo "127.0.0.1	gitlab.sakura.co.jp" >> /etc/hosts
+echo "127.0.0.1	src.taka2063.com" >> /etc/hosts
 /bin/bash --login

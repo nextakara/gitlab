@@ -50,7 +50,7 @@ listen "127.0.0.1:8080", :tcp_nopush => true
 #
 # For more information see http://stackoverflow.com/a/21682112/752049
 #
-timeout 60
+timeout 120
 
 # feel free to point this anywhere accessible on the filesystem
 pid "/home/git/gitlab/tmp/pids/unicorn.pid"

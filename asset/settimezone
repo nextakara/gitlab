@@ -1,0 +1,8 @@
+#!/usr/bin/expect
+set timeout -1
+spawn /usr/sbin/dpkg-reconfigure tzdata
+expect "Geographic area:"
+send "6\r"
+expect "Time zone:"
+send "75\r"
+expect off

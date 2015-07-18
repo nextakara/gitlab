@@ -30,7 +30,10 @@ stop:
 	docker rm -f $(NAME)
 
 attach:
-	docker attach $(NAME)
+	docker exec -it $(NAME) /bin/bash
 
 logs:
 	docker logs $(NAME)
+
+tag:
+	docker tag $(NAME):$(VERSION) $(NAME):latest

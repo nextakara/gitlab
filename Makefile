@@ -8,8 +8,8 @@ restart: stop start
 
 start:
 	docker run -itd \
+		--privileged \
 		-p 222:222 \
-		-p 301:80 \
 		-v /var/repositories:/home/git/repositories \
 		-v /var/repositories/git/ssh:/home/git/.ssh \
 		--name $(NAME) \

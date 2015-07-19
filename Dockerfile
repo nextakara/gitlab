@@ -31,7 +31,7 @@ RUN useradd -m -s /bin/bash -c 'GitLab' git
 USER git
 WORKDIR /home/git/
 
-RUN git clone https://gitlab.com/gitlab-org/gitlab-ce.git -b 7-9-stable gitlab
+RUN git clone https://gitlab.com/gitlab-org/gitlab-ce.git -b v7.9.4 gitlab
 RUN wget https://raw.githubusercontent.com/ksoichiro/gitlab-i18n-patch/master/patches/v7.9.4/app_ja.patch
 WORKDIR /home/git/gitlab
 RUN patch -p1 < ../app_ja.patch
@@ -54,6 +54,7 @@ RUN bundle exec rake assets:precompile RAILS_ENV=production
 
 EXPOSE 80 222
 
+
 ENTRYPOINT /root/init
 
 USER root
@@ -61,6 +62,12 @@ USER root
 #COPY asset/settimezone /root/
 #RUN /usr/bin/expect /root/settimezone
 
+RUN apt-get -y install ntp
+
 COPY asset/sshd_config /etc/ssh/
 COPY asset/init /root/
 RUN chmod +x /root/init
+
+#RUN apt-get -y install net-tools ifupdown
+#COPY asset/lo /etc/network/interfaces.d/
+#COPY asset/eth0 /etc/network/interfaces.d/

@@ -10,8 +10,9 @@ start:
 	docker run -itd \
 		--privileged \
 		-p 222:222 \
-		-v /var/repositories:/home/git/repositories \
-		-v /var/repositories/git/ssh:/home/git/.ssh \
+		-v /var/gitlab/repositories:/home/git/repositories \
+		-v /var/gitlab/ssh:/home/git/.ssh \
+		-v /var/gitlab/uploads:/home/git/gitlab/public/uploads \
 		--name $(NAME) \
 		$(NAME):$(VERSION) bash
 

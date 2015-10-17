@@ -14,6 +14,7 @@ start:
 		-v /var/gitlab/ssh:/home/git/.ssh \
 		-v /var/gitlab/uploads:/home/git/gitlab/public/uploads \
 		--name $(NAME) \
+		-h $(NAME) \
 		$(NAME):$(VERSION) bash
 
 contener=`docker ps -a -q`

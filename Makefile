@@ -9,7 +9,6 @@ restart: stop start
 start:
 	docker run -itd \
 		--privileged \
-		-p 222:222 \
 		-v /var/gitlab/repositories:/home/git/repositories \
 		-v /var/gitlab/ssh:/home/git/.ssh \
 		-v /var/gitlab/uploads:/home/git/gitlab/public/uploads \

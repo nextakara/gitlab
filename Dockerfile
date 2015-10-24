@@ -60,7 +60,7 @@ USER root
 
 RUN chown git.git /home/git/gitlab-shell/config.yml
 
-EXPOSE 80 222
+EXPOSE 80 22
 
 ENTRYPOINT /root/init
 

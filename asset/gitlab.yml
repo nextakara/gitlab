@@ -268,7 +268,7 @@ production: &base
 
     # If you use non-standard ssh port you need to specify it
     # ssh_port: 22
-    ssh_port: 222
+    ssh_port: 22
 
   ## Git settings
   # CAUTION!

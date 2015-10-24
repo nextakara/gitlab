@@ -1,5 +1,5 @@
 NAME=gitlab
-VERSION=7.9
+VERSION=7.9-20151024
 
 build:
 	docker build -t $(NAME):$(VERSION) .
@@ -39,3 +39,4 @@ logs:
 
 tag:
 	docker tag $(NAME):$(VERSION) $(NAME):latest
+

@@ -1,0 +1,15 @@
+---
+user: git
+gitlab_url: http://src.taka2063.com/
+http_settings:
+  self_signed_cert: false
+repos_path: "/home/git/repositories/"
+auth_file: "/home/git/.ssh/authorized_keys"
+redis:
+  bin: "/usr/bin/redis-cli"
+  namespace: resque:gitlab
+  # socket: "/var/run/redis/redis.sock"
+  host: 172.17.42.1
+  port: 6379
+log_level: INFO
+audit_usernames: false

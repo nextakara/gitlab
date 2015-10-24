@@ -1,6 +1,6 @@
 FROM debian:8.1
 
-MAINTAINER takara
+MAINTAINER taka2063
 
 WORKDIR /root/
 
@@ -12,6 +12,8 @@ RUN apt-get install -y mysql-client libmysqlclient-dev libkrb5-dev git
 RUN apt-get install -y expect
 RUN apt-get install -y daemon chkconfig
 RUN apt-get install -y nginx
+RUN apt-get -y install ntp
+RUN apt-get -y install net-tools
 
 # ruby
 RUN apt-get -y install ruby2.1 ruby2.1-dev rubygems 
@@ -52,22 +54,19 @@ COPY asset/application.rb /home/git/gitlab/config/
 RUN bundle exec rake gitlab:shell:install[v2.4.0] REDIS_URL=unix:/var/run/redis/redis.sock RAILS_ENV=production
 RUN bundle exec rake assets:precompile RAILS_ENV=production
 
-EXPOSE 80 222
-
-
-ENTRYPOINT /root/init
+COPY asset/gitlab-shell-config.yml /home/git/gitlab-shell/config.yml
 
 USER root
+
+RUN chown git.git /home/git/gitlab-shell/config.yml
+
+EXPOSE 80 222
+
+ENTRYPOINT /root/init
 
 #COPY asset/settimezone /root/
 #RUN /usr/bin/expect /root/settimezone
 
-RUN apt-get -y install ntp
-
 COPY asset/sshd_config /etc/ssh/
 COPY asset/init /root/
 RUN chmod +x /root/init
-
-#RUN apt-get -y install net-tools ifupdown
-#COPY asset/lo /etc/network/interfaces.d/
-#COPY asset/eth0 /etc/network/interfaces.d/

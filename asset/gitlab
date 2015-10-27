@@ -42,7 +42,7 @@ upstream gitlab {
 server {
 #  listen 0.0.0.0:80 default_server;
 #  listen [::]:80 default_server;
-  server_name src.taka2063.com;
+  server_name src.taka2063.com 172.17.5.1;
   server_tokens off; ## Don't show the nginx version number, a security best practice
   root /home/git/gitlab/public;
 

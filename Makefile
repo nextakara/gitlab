@@ -1,5 +1,5 @@
 NAME=gitlab
-VERSION=7.9-20151024
+VERSION=7.9-20151027
 
 build:
 	docker build -t $(NAME):$(VERSION) .

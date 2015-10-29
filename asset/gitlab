@@ -3,7 +3,7 @@ upstream gitlab {
 }
 
 server {
-  server_name src.taka2063.com 172.17.5.1;
+  server_name gitlab;
   server_tokens off; ## Don't show the nginx version number, a security best practice
   root /home/git/gitlab/public;
   passenger_enabled on;

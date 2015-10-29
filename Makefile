@@ -9,12 +9,12 @@ restart: stop start
 start:
 	docker run -itd \
 		--privileged \
-		-v /var/gitlab/repositories:/home/git/repositories \
-		-v /var/gitlab/ssh:/home/git/.ssh \
-		-v /var/gitlab/uploads:/home/git/gitlab/public/uploads \
 		--name $(NAME) \
+		--add-host=gitlab:172.17.240.1 \
+		-v /var/gitlab/:/home/git/ \
 		-h $(NAME) \
 		$(NAME):$(VERSION) bash
+
 
 contener=`docker ps -a -q`
 image=`docker images | awk '/^<none>/ { print $$3 }'`

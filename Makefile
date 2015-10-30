@@ -1,5 +1,5 @@
 NAME=gitlab
-VERSION=7.9-20151027
+VERSION=7.9-20151029
 
 build:
 	docker build -t $(NAME):$(VERSION) .
@@ -16,15 +16,12 @@ start:
 		$(NAME):$(VERSION) bash
 
 
-contener=`docker ps -a -q`
+all_container=`docker ps -a -q`
 image=`docker images | awk '/^<none>/ { print $$3 }'`
 
-clean:
+clean: clean_container
 	@if [ "$(image)" != "" ] ; then \
 		docker rmi $(image); \
-	fi
-	@if [ "$(contener)" != "" ] ; then \
-		docker rm $(contener); \
 	fi
 
 stop:
@@ -38,4 +35,16 @@ logs:
 
 tag:
 	docker tag $(NAME):$(VERSION) $(NAME):latest
+
+active_container=`docker ps -q`
+
+clean_container:
+	@for a in $(all_container) ; do \
+		for b in $(active_container) ; do \
+			if [ "$${a}" = "$${b}" ] ; then \
+				continue 2; \
+			fi; \
+		done; \
+		docker rm $${a}; \
+	done
 

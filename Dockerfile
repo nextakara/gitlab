@@ -29,46 +29,51 @@ ENV DEBIAN_FRONTEND dialog
 
 RUN passenger-install-nginx-module --auto
 
+# nginx
 COPY asset/nginx.conf /etc/nginx/
 COPY asset/gitlab /etc/nginx/sites-available/gitlab
 RUN ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab
-COPY asset/gitlab-shell-config.yml /home/git/gitlab-shell/config.yml
 
 
+# gitlab
 RUN useradd -m -s /bin/bash -c 'GitLab' git
+RUN mkdir -p /var/gitlab && chown -R git.www-data /var/gitlab && chmod -R g+rw /var/gitlab
 
 USER git
-WORKDIR /home/git/
+WORKDIR /var/gitlab
 
-#RUN git clone https://gitlab.com/gitlab-org/gitlab-ce.git -b v7.13.5 gitlab
-#RUN wget https://raw.githubusercontent.com/ksoichiro/gitlab-i18n-patch/master/patches/v7.13.5/app_ja.patch
-#WORKDIR /home/git/gitlab
-#RUN patch -p1 < ../app_ja.patch
-#RUN chown -R git log tmp
-#RUN chmod -R u+rwX log tmp public/uploads/
-#RUN mkdir /home/git/gitlab-satellites
-#RUN chmod u+rwx,g=rx,o-rwx /home/git/gitlab-satellites
-#
-#RUN bundle install --deployment --without development test postgres aws
-#
-#RUN bundle exec rake gitlab:shell:install[v2.4.0] REDIS_URL=unix:/var/run/redis/redis.sock RAILS_ENV=production
-#RUN bundle exec rake assets:precompile RAILS_ENV=production
+RUN git clone https://gitlab.com/gitlab-org/gitlab-ce.git -b v7.13.5 gitlab
+RUN wget https://raw.githubusercontent.com/ksoichiro/gitlab-i18n-patch/master/patches/v7.13.5/app_ja.patch -O ~/app_ja.patch
+WORKDIR /var/gitlab/gitlab
+RUN patch -p1 < ~/app_ja.patch && rm ~/app_ja.patch
+RUN chown -R git log tmp
+RUN chmod -R u+rwX log tmp public/uploads/
+RUN mkdir /var/gitlab/gitlab-satellites
+RUN chmod u+rwx,g=rx,o-rwx /var/gitlab/gitlab-satellites
+
+RUN bundle install --deployment --without development test postgres aws
+
+COPY asset/gitlab.yml /var/gitlab/gitlab/config/
+COPY asset/database.yml /var/gitlab/gitlab/config/
+RUN bundle exec rake gitlab:shell:install[v2.6.3] REDIS_URL=redis://172.17.42.1:6379 RAILS_ENV=production
+RUN bundle exec rake assets:precompile RAILS_ENV=production
 
 USER root
 
-#COPY asset/gitlab.yml /home/git/gitlab/config/
-#COPY asset/rack_attack.rb /home/git/gitlab/config/initializers/
-#COPY asset/resque.yml /home/git/gitlab/config/
-#COPY asset/database.yml /home/git/gitlab/config/
-#COPY asset/application.rb /home/git/gitlab/config/
+#COPY asset/rack_attack.rb /var/git/gitlab/config/initializers/
+COPY asset/resque.yml /var/gitlab/gitlab/config/
+COPY asset/application.rb /var/gitlab/gitlab/config/
 #COPY asset/gitlab.init.d /etc/init.d/gitlab
 #COPY asset/gitlab.default /etc/default/gitlab
+#COPY asset/gitlab-shell-config.yml /home/git/gitlab-shell/config.yml
 #
 #RUN chown git.git /home/git/gitlab-shell/config.yml
 
 COPY asset/sshd_config /etc/ssh/
 COPY asset/init /root/
 RUN chmod +x /root/init
+RUN chown -R git.www-data /var/gitlab/gitlab
+RUN chmod -R g+rw /var/gitlab/gitlab
 
 EXPOSE 80 22
 

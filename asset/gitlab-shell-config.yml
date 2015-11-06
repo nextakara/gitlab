@@ -1,6 +1,6 @@
 ---
 user: git
-gitlab_url: http://src.taka2063.com/
+gitlab_url: http://gitlab/
 http_settings:
   self_signed_cert: false
 repos_path: "/home/git/repositories/"

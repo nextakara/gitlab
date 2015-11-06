@@ -28,12 +28,13 @@ module Gitlab
     config.i18n.enforce_available_locales = false
     config.i18n.locale = :ja
     config.i18n.default_locale = :ja
+    config.time_zone = 'Tokyo'
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters.push(:password, :password_confirmation, :private_token)
+    config.filter_parameters.push(:password, :password_confirmation, :private_token, :otp_attempt)
 
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
@@ -99,8 +100,6 @@ module Gitlab
 
     redis_config_hash[:namespace] = 'cache:gitlab'
     config.cache_store = :redis_store, redis_config_hash
-
-    config.time_zone = 'Tokyo'
 
     # This is needed for gitlab-shell
     ENV['GITLAB_PATH_OUTSIDE_HOOK'] = ENV['PATH']

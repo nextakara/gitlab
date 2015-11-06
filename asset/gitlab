@@ -1,11 +1,11 @@
 upstream gitlab {
-  server unix:/home/git/gitlab/tmp/sockets/gitlab.socket fail_timeout=0;
+  server unix:/var/gitlab/gitlab/tmp/sockets/gitlab.socket fail_timeout=0;
 }
 
 server {
   server_name gitlab;
   server_tokens off; ## Don't show the nginx version number, a security best practice
-  root /home/git/gitlab/public;
+  root /var/gitlab/gitlab/public;
   passenger_enabled on;
 
   ## Increase this if you want to upload large attachments

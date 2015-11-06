@@ -17,7 +17,7 @@ production: &base
   ## GitLab settings
   gitlab:
     ## Web server settings (note: host is the FQDN, do not include http://)
-    host: src.taka2063.com
+    host: gitlab
     port: 80 # Set to 443 if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
     https: false # Set to true if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
 
@@ -42,7 +42,7 @@ production: &base
     # Uncomment and set to false if you need to disable email sending from GitLab (default: true)
     # email_enabled: true
     # Email address used in the "From" field in mails sent by GitLab
-    email_from: root@src.taka2063.com
+    email_from: root@gitlab
 
     # Email server smtp settings are in [a separate file](initializers/smtp_settings.rb.sample).
 
@@ -237,7 +237,7 @@ production: &base
   # GitLab Satellites
   satellites:
     # Relative paths are relative to Rails.root (default: tmp/repo_satellites/)
-    path: /home/git/gitlab-satellites/
+    path: /var/gitlab/gitlab-satellites/
     timeout: 30
 
   ## Backup settings
@@ -256,11 +256,11 @@ production: &base
 
   ## GitLab Shell settings
   gitlab_shell:
-    path: /home/git/gitlab-shell/
+    path: /var/gitlab/gitlab-shell/
 
     # REPOS_PATH MUST NOT BE A SYMLINK!!!
     repos_path: /home/git/repositories/
-    hooks_path: /home/git/gitlab-shell/hooks/
+    hooks_path: /var/gitlab/gitlab-shell/hooks/
 
     # Git over HTTP
     upload_pack: true

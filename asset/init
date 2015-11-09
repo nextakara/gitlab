@@ -3,7 +3,7 @@ ip addr flush eth0
 route add default gw 172.17.42.1
 ip addr add local 172.17.240.1/16 dev eth0
 service ssh start
-service gitlab start
+#service gitlab start
 service nginx start
 service postfix start
 service ntp start

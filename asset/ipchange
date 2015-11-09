@@ -1,0 +1,15 @@
+#!/bin/bash
+
+### BEGIN INIT INFO
+# Provides:   ipchange
+# Required-Start:    $network
+# Required-Stop:     
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: ipchange
+# Description:       ipchange
+### END INIT INFO
+
+ip addr flush eth0
+ip addr add local 172.17.240.1/16 dev eth0
+route add default gw 172.17.0.1

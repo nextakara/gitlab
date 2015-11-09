@@ -7,4 +7,4 @@ DOCKER_RUN_OPTIONS=\
 	--privileged
 
 
-include docker.mk
+include docker1.mk

@@ -71,12 +71,13 @@ COPY asset/application.rb /var/gitlab/gitlab/config/
 #
 #RUN chown git.git /home/git/gitlab-shell/config.yml
 
+COPY asset/ipchange /etc/init.d/
+RUN chkconfig --add ipchange
 COPY asset/sshd_config /etc/ssh/
 RUN chown -R git.www-data /var/gitlab/gitlab
 RUN chmod -R g+rw /var/gitlab/gitlab
-COPY asset/init /root/
-RUN chmod +x /root/init
 
 EXPOSE 80 22
 
-ENTRYPOINT /root/init
+#ENTRYPOINT /root/init
+CMD ["/sbin/init", "3"]

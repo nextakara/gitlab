@@ -8,15 +8,17 @@ RUN apt-get update && apt-get -y upgrade
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get remove nginx nginx-full nginx-light nginx-common
-
-RUN apt-get -y install vim gcc make wget tar net-tools
-RUN apt-get install -y build-essential zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev curl openssh-server redis-server checkinstall libxml2-dev libxslt-dev libcurl4-openssl-dev libicu-dev logrotate python-docutils pkg-config cmake nodejs
-RUN apt-get install -y mysql-client libmysqlclient-dev libkrb5-dev git
-RUN apt-get install -y daemon chkconfig
 RUN apt-get -y install ntp apt-transport-https
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
 COPY asset/passenger.list /etc/apt/sources.list.d/
 RUN apt-get update
+RUN apt-get -y install vim gcc make wget tar net-tools
+#RUN apt-get -y install perlbrew
+#RUN echo "deb http://ftp.jp.debian.org/debian wheezy-backports main" > /etc/apt/sources.list.d/wheezy-backports.list
+#RUN apt-get update
+RUN apt-get install -y build-essential zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev curl openssh-server redis-server checkinstall libxml2-dev libxslt-dev libcurl4-openssl-dev libicu-dev logrotate python-docutils pkg-config cmake nodejs
+RUN apt-get install -y mysql-client libmysqlclient-dev libkrb5-dev git
+RUN apt-get install -y daemon chkconfig
 RUN apt-get -y install nginx-extras passenger
 
 # ruby
@@ -70,10 +72,10 @@ COPY asset/application.rb /var/gitlab/gitlab/config/
 #RUN chown git.git /home/git/gitlab-shell/config.yml
 
 COPY asset/sshd_config /etc/ssh/
-COPY asset/init /root/
-RUN chmod +x /root/init
 RUN chown -R git.www-data /var/gitlab/gitlab
 RUN chmod -R g+rw /var/gitlab/gitlab
+COPY asset/init /root/
+RUN chmod +x /root/init
 
 EXPOSE 80 22
 

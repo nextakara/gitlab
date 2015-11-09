@@ -10,6 +10,6 @@ production:
   pool: 10
   username: git
   password: "git"
-  host: 172.17.42.1
+  host: 172.17.0.1
   # socket: /tmp/mysql.sock
 

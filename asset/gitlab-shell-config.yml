@@ -9,7 +9,7 @@ redis:
   bin: "/usr/bin/redis-cli"
   namespace: resque:gitlab
   # socket: "/var/run/redis/redis.sock"
-  host: 172.17.42.1
+  host: 172.17.0.1
   port: 6379
 log_level: INFO
 audit_usernames: false
